@@ -10,6 +10,7 @@ void nunifont_load_staticmap(void *fontmap_static,void *widthmap_static,int font
 void nunifont_save_staticmap(char *fontmap_filename,char *widthmap_filename);
 
 void set_system_bg(uint32_t b);
+void draw_unitext_renderer_asc(SDL_Renderer *renderer,int x,int y,const char *text,uint32_t bg,uint32_t fg);
 void draw_unitext_surface(SDL_Surface *screen,int x,int y,const uint16_t *text,uint32_t bg,uint32_t fg,int bold,int underline,int italic,int strike);
 void draw_unitext_renderer(SDL_Renderer *screen,int x,int y,const uint16_t *text,uint32_t bg,uint32_t fg,int bold,int underline,int italic,int strike);
 void draw_unitext_fancy_surface(SDL_Surface *screen,int x,int y,const uint16_t *text, uint32_t bg,uint32_t fg, unsigned int bold, unsigned int underline, unsigned int italic, unsigned int blink, unsigned int reverse, unsigned int strike, unsigned int font);

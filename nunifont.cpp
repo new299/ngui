@@ -398,6 +398,18 @@ void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *te
   }
 }
 
+void draw_unitext_renderer_asc(SDL_Renderer *renderer,int x,int y,const char *text,uint32_t bg,uint32_t fg) {
+
+  uint16_t buffer[1000];
+  for(size_t n=0;n<strlen(text);n++) {
+    buffer[n]=text[n];
+    buffer[n+1]=0;
+  }
+
+  draw_unitext_renderer(renderer,x,y,buffer,bg,fg,0,0,0,0);
+
+}
+
 void set_widthmap(uint8_t *widthmap,int p,int v) {
 
   int byte = p/8;
