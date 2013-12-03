@@ -138,6 +138,10 @@ void draw_point(void *screen,int x,int y,uint32_t value) {
 
 
 void draw_character_surface(SDL_Surface *screen,int x,int y,int w,uint32_t cin,uint32_t bg,uint32_t fg,int bold,int underline,int italic,int strike) {
+
+    if(x > (screen->w-8)) return;
+    if(y > (screen->h-16)) return;
+
     for(size_t c_y=y;c_y<(y+16);c_y++) {
     for(size_t c_x=x;c_x<(x+w);c_x++) {
 
@@ -400,8 +404,15 @@ void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *te
 
 void draw_unitext_renderer_asc(SDL_Renderer *renderer,int x,int y,const char *text,uint32_t bg,uint32_t fg) {
 
+  int textlen =0;
+  if(strlen(text) > 125) {
+    textlen = 125;
+  } else {
+    textlen = strlen(text);
+  }
+   
   uint16_t buffer[1000];
-  for(size_t n=0;n<strlen(text);n++) {
+  for(size_t n=0;n<textlen;n++) {
     buffer[n]=text[n];
     buffer[n+1]=0;
   }
