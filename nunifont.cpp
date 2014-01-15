@@ -509,7 +509,7 @@ void load_fonts(const char *filename,fontchar **fontmap,uint8_t **widthmap) {
   for(int n=0;!feof(mfile);n++) {
     char *line = (char *) malloc(50);
     size_t size = 50;
-    getline(&line,&size,mfile);
+    int r = getline(&line,&size,mfile);
 
     int width = load_line(line,&(*fontmap)[n]);
     set_widthmap(*widthmap,n,width);

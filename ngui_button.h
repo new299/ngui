@@ -3,9 +3,9 @@
 
 #include <SDL.h>
 
-void ngui_move_button(char *name,int nx,int ny);
+void ngui_move_button(const char *name,int nx,int ny);
 
-int ngui_add_button(int x,int y,char *text,void *callback);
+int ngui_add_button(int x,int y,const char *text,ngui_callback_void callback);
 
 void ngui_delete_button(int id);
 

@@ -9,6 +9,7 @@ typedef struct {
   int x;
   int y;
   char text[100];
+  uint32_t colour;
 } ngui_textlabel_data;
 
 int ngui_textlabels_size = 0;
@@ -31,17 +32,18 @@ void ngui_render_textlabel(ngui_textlabel_data *d) {
               65535,0,0,0,0);
 }
 
-void ngui_modify_textlabel(int idx,char *text) {
+void ngui_modify_textlabel(int idx,const char *text) {
   strcpy(ngui_textlabels[idx].text,text);
 }
 
 
-int ngui_add_textlabel(int x,int y,char *text) {
+int ngui_add_textlabel(int x,int y,const char *text, uint32_t colour) {
 
   ngui_textlabels[ngui_textlabels_size].valid = true;
   ngui_textlabels[ngui_textlabels_size].x = x;
   ngui_textlabels[ngui_textlabels_size].y = y;
   strcpy(ngui_textlabels[ngui_textlabels_size].text,text);
+  ngui_textlabels[ngui_textlabels_size].colour = colour;
 
   ngui_textlabels_size++;
 

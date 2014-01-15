@@ -47,9 +47,9 @@ void ngui_render_info_prompt(ngui_info_prompt_data *d) {
 void ngui_info_prompt_button_call(char *caller) {
 
   //TODO: this sucks
-  char *t1 = ngui_textbox_get_value(ngui_info_prompts[0].textbox1);
-  char *t2 = ngui_textbox_get_value(ngui_info_prompts[0].textbox2);
-  char *t3 = ngui_textbox_get_value(ngui_info_prompts[0].textbox3);
+  const char *t1 = ngui_textbox_get_value(ngui_info_prompts[0].textbox1);
+  const char *t2 = ngui_textbox_get_value(ngui_info_prompts[0].textbox2);
+  const char *t3 = ngui_textbox_get_value(ngui_info_prompts[0].textbox3);
    
   ngui_info_prompts[0].callback(t1,
                                 t2,

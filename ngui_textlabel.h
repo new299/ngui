@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-int ngui_add_textlabel(int x,int y,char *text);
+int ngui_add_textlabel(int x,int y,const char *text, uint32_t colour = 0xffffffff);
 
 void ngui_delete_textlabel(int id);
 
@@ -11,7 +11,7 @@ void ngui_receiveall_textlabel(SDL_Event *event);
 
 void ngui_renderall_textlabel();
 
-void ngui_modify_textlabel(int idx,char *text);
+void ngui_modify_textlabel(int idx,const char *text);
 
 extern SDL_Surface *ngui_screen;
 

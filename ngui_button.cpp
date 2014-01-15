@@ -13,7 +13,7 @@ typedef struct {
   int y_padding;
   int shine;
   char text[100];
-  void (*callback)(const char *);
+  ngui_callback_void callback;
 } ngui_button_data;
 
 int ngui_buttons_size = 0;
@@ -29,7 +29,7 @@ void ngui_receive_event_button(SDL_Event *event, ngui_button_data *d) {
     if(d->text[0] == 'I') {
       if((x > (d->x)) && (x < ((d->x)+(16*6))) &&
          (y > (d->y)) && (y < ((d->y)+(16*6)))) {
-        d->callback("press");
+        d->callback();
         d->shine=20;
         ngui_redraw_required();
       }
@@ -37,7 +37,7 @@ void ngui_receive_event_button(SDL_Event *event, ngui_button_data *d) {
     
     if((x > (d->x-d->x_padding)) && (x < ((d->x)+(strlen(d->text)*8)+d->x_padding)) &&
        (y > (d->y-d->y_padding)) && (y < ((d->y)+16+d->y_padding))) {
-      d->callback("press");
+      d->callback();
       d->shine=20;
       ngui_redraw_required();
     }
@@ -54,7 +54,7 @@ int ustrcmp(uint16_t *a,const char *b) {
   return 1;
 }
 
-void ngui_move_button(char *name,int nx,int ny) {
+void ngui_move_button(const char *name,int nx,int ny) {
 
   for(int n=0;n<ngui_buttons_size;n++) {
     if(strcmp(ngui_buttons[n].text,name)==0) {
@@ -549,7 +549,7 @@ void ngui_render_button(ngui_button_data *d) {
   }
 }
 
-int ngui_add_button(int x,int y,char *text,void *callback) {
+int ngui_add_button(int x,int y,const char *text,ngui_callback_void callback) {
 
   ngui_buttons[ngui_buttons_size].valid=true;
   ngui_buttons[ngui_buttons_size].x = x;
@@ -558,7 +558,7 @@ int ngui_add_button(int x,int y,char *text,void *callback) {
   ngui_buttons[ngui_buttons_size].y_padding = 20;
   ngui_buttons[ngui_buttons_size].shine = 0;
   strcpy(ngui_buttons[ngui_buttons_size].text,text);
-  ngui_buttons[ngui_buttons_size].callback = (void(*)(const char *)) callback;
+  ngui_buttons[ngui_buttons_size].callback = callback;
 
   ngui_buttons_size++;
 

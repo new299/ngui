@@ -19,7 +19,7 @@ typedef struct {
   int  width;
   bool selected;
   char text[MAX_TEXT_LENGTH];
-  void (*callback)(const char *);
+  ngui_callback_void callback;;
 } ngui_textbox_data;
 
 int ngui_textboxs_size = 0;
@@ -34,10 +34,10 @@ void ngui_receive_event_textbox(SDL_Event *event, ngui_textbox_data *d) {
     if((x > (d->x-d->x_padding)) && (x < ((d->x)+(d->width*8)+d->x_padding)) &&
        (y > (d->y-d->y_padding)) && (y < ((d->y)+16+d->y_padding))) {
       d->selected = true;
-      if(d->callback != NULL) d->callback("redraw");
+      if(d->callback != NULL) d->callback();
     } else {
       d->selected = false;
-      if(d->callback != NULL) d->callback("redraw");
+      if(d->callback != NULL) d->callback();
     }
   }
 
@@ -48,14 +48,14 @@ void ngui_receive_event_textbox(SDL_Event *event, ngui_textbox_data *d) {
       if(event->key.keysym.sym == SDLK_BACKSPACE) {
         int p = strlen(d->text);
         if(p > 0) d->text[p-1]=0;
-        if(d->callback != NULL) d->callback("redraw");
+        if(d->callback != NULL) d->callback();
         return;
       } else {
       }
     }
 
     if(event->type == SDL_TEXTINPUT) {
-      char *buffer = event->text.text;
+      const char *buffer = event->text.text;
 
       int p=0;
       for(p=0;p<MAX_TEXT_LENGTH;p++) {
@@ -71,7 +71,7 @@ void ngui_receive_event_textbox(SDL_Event *event, ngui_textbox_data *d) {
           p++;
         }
       }
-      if(d->callback != NULL) d->callback("redraw");
+      if(d->callback != NULL) d->callback();
     }
   }
 }
@@ -124,7 +124,7 @@ void ngui_delete_textbox(int id) {
   ngui_textboxs[id].valid = false;
 }
 
-int ngui_add_textbox(int x,int y,char *text,bool passwordbox,void *callback) {
+int ngui_add_textbox(int x,int y,const char *text,bool passwordbox,ngui_callback_void callback) {
 
   ngui_textboxs[ngui_textboxs_size].valid = true;
   ngui_textboxs[ngui_textboxs_size].x = x;
@@ -134,7 +134,7 @@ int ngui_add_textbox(int x,int y,char *text,bool passwordbox,void *callback) {
   ngui_textboxs[ngui_textboxs_size].y_padding = 10;
   ngui_textboxs[ngui_textboxs_size].width     = 8*20;
   strcpy(ngui_textboxs[ngui_textboxs_size].text,text);
-  ngui_textboxs[ngui_textboxs_size].callback = (void (*)(const char *)) callback;
+  ngui_textboxs[ngui_textboxs_size].callback = callback;
 
   ngui_textboxs_size++;
   return ngui_textboxs_size-1;
@@ -158,7 +158,7 @@ void ngui_renderall_textbox() {
   }
 }
 
-char *ngui_textbox_get_value(int id) {
+const char *ngui_textbox_get_value(int id) {
 
   return ngui_textboxs[id].text;
 

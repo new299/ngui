@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "nunifont.h"
 
+#include "ngui.h"
 #include "ngui_flowbox.h"
 #include "ngui_info_prompt.h"
 #include "ngui_textbox.h"
@@ -10,12 +11,11 @@
 #include "ngui_stringselect.h"
 
 SDL_Renderer *ngui_renderer;
-  
-void (*ngui_redraw_required_callback)();
+ngui_callback_void ngui_redraw_required_callback;
 
-void ngui_set_renderer(struct SDL_Renderer *s,void (*redraw_callback)()) {
+void ngui_set_renderer(struct SDL_Renderer *s,ngui_callback_void redraw_callback) {
   ngui_renderer = s;
-  ngui_redraw_required_callback = (void (*)()) redraw_callback;
+  ngui_redraw_required_callback = redraw_callback;
 }
 
 void ngui_receive_event(SDL_Event *event) {
