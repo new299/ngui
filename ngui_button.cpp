@@ -14,6 +14,7 @@ typedef struct {
   int shine;
   char text[100];
   ngui_callback_void callback;
+  uint32_t colour;
 } ngui_button_data;
 
 int ngui_buttons_size = 0;
@@ -541,15 +542,15 @@ void ngui_render_button(ngui_button_data *d) {
     }
   
     draw_unitext_renderer(ngui_renderer,
-                d->x,
-                d->y,
+                d->x-d->x_padding/2,
+                d->y-d->y_padding/2,
                 text,
                 0,
-                65535,0,0,0,0);
+                d->colour,0,0,0,0);
   }
 }
 
-int ngui_add_button(int x,int y,const char *text,ngui_callback_void callback) {
+int ngui_add_button(int x,int y,const char *text,ngui_callback_void callback, uint32_t colour) {
 
   ngui_buttons[ngui_buttons_size].valid=true;
   ngui_buttons[ngui_buttons_size].x = x;
@@ -559,6 +560,7 @@ int ngui_add_button(int x,int y,const char *text,ngui_callback_void callback) {
   ngui_buttons[ngui_buttons_size].shine = 0;
   strcpy(ngui_buttons[ngui_buttons_size].text,text);
   ngui_buttons[ngui_buttons_size].callback = callback;
+  ngui_buttons[ngui_buttons_size].colour = colour;
 
   ngui_buttons_size++;
 

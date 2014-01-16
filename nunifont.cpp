@@ -59,7 +59,7 @@ void nunifont_initcache() {
     // free up display_cache
     if(display_cache != NULL) {
 
-      char_render_t *s;
+      char_render_t *s = NULL;
 
       for(s=display_cache; s != NULL; s=(char_render_t *) s->hh.next) {
         SDL_DestroyTexture(s->texture);
@@ -193,14 +193,13 @@ void draw_character(SDL_Renderer *screen,int x,int y,int w,uint32_t cin,uint32_t
     HASH_FIND( hh, display_cache, &chr, char_render_t_keylen, mchr);
     
     if(!mchr) {
-      uint32_t Rmask, Gmask, Bmask, Amask;      /* masks for desired format */
-   
-      Rmask = 0xff000000;
-      Gmask = 0x00ff0000;
-      Bmask = 0x0000ff00;
-      Amask = 0x000000ff;
+	  /* masks for desired format */
+      const uint32_t Rmask = 0xff000000;
+      const uint32_t Gmask = 0x00ff0000;
+      const uint32_t Bmask = 0x0000ff00;
+      const uint32_t Amask = 0x000000ff;
     
-      int bpp=32;                /* bits per pixel for desired format */
+      const int bpp=32;                /* bits per pixel for desired format */
     
  //     SDL_Surface *converted = SDL_CreateRGBSurface(0,w,16,32,0,0,0,0);
       SDL_Surface *converted = SDL_CreateRGBSurface(SDL_SWSURFACE, w, 16, bpp, Rmask, Gmask, Bmask, Amask);
@@ -369,8 +368,19 @@ void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *te
 
   if(!initialised) nunifont_init();
 
-  int length=0;
-  for(int n=0;n<10000;n++) {if(text[n] == 0) {length=n; break;}}
+  //int length=0;
+  const uint16_t * textp = text;
+  while (*textp++)
+	  ;
+  int length = textp - text - 1;
+  /*for(int n=0;n<10000;n++) 
+  {
+	  if(text[n] == 0) 
+	  {
+		  length=n; 
+		  break;
+	  }
+  }*/
   if(length < 0    ) return;
   if(length > 10000) return;
 
@@ -383,12 +393,14 @@ void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *te
     if(text[n] == ' ') {
       int w=8;
       //draw_character(renderer,c_x,c_y,w,text[n],bg,fg,bold,underline,italic,strike);
-      if(bg!=system_bg) draw_space_renderer(renderer,c_x,c_y,8+spacing,bg,fg);
+      if(bg!=system_bg) 
+	  {
+		  draw_space_renderer(renderer,c_x,c_y,8+spacing,bg,fg);
+	  }
  //     draw_space_h(renderer,c_x,c_y+16,spacing,bg,fg);
       c_x += 8 + spacing; 
     } else {
-      int w=8;
-      if(get_widthmap(text[n]) != true) w=16; else w=8;
+      int w = (get_widthmap(text[n]) != true)? 16 : 8;
       draw_character(renderer,c_x,c_y,w,text[n],bg,fg,bold,underline,italic,strike);
 
       //draw spacing - currently no spacing.
@@ -412,6 +424,7 @@ void draw_unitext_renderer_asc(SDL_Renderer *renderer,int x,int y,const char *te
   }
    
   uint16_t buffer[1000];
+  memset(buffer, 0, sizeof(buffer));
   for(size_t n=0;n<textlen;n++) {
     buffer[n]=text[n];
     buffer[n+1]=0;

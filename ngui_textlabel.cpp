@@ -29,11 +29,12 @@ void ngui_render_textlabel(ngui_textlabel_data *d) {
               d->y,
               text,
               1,
-              65535,0,0,0,0);
+              d->colour,0,0,0,0);
 }
 
-void ngui_modify_textlabel(int idx,const char *text) {
+void ngui_modify_textlabel(int idx,const char *text, uint32_t colour) {
   strcpy(ngui_textlabels[idx].text,text);
+  ngui_textlabels[idx].colour = colour;
 }
 
 
