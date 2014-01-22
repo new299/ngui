@@ -8,12 +8,12 @@ typedef struct {
   bool valid;
   int x;
   int y;
-  char text[100];
+  char text[NGUI_MAX_TEXT_SIZE];
   uint32_t colour;
 } ngui_textlabel_data;
 
 int ngui_textlabels_size = 0;
-ngui_textlabel_data ngui_textlabels[50];
+ngui_textlabel_data ngui_textlabels[NGUI_MAX_GUI_ELEMENTS];
 
 void ngui_receive_event_textlabel(SDL_Event *event, ngui_textlabel_data *d) {
 //  d->callback("127.0.0.1","user","password");
@@ -21,8 +21,9 @@ void ngui_receive_event_textlabel(SDL_Event *event, ngui_textlabel_data *d) {
 
 void ngui_render_textlabel(ngui_textlabel_data *d) {
 
-  uint16_t text[100];
-  for(int n=0;n<100;n++) text[n] = d->text[n];
+  uint16_t text[NGUI_MAX_TEXT_SIZE];
+  memset(text, 0, sizeof(text));
+  for(int n=0;n<NGUI_MAX_TEXT_SIZE && d->text[n];n++) text[n] = d->text[n];
 
   draw_unitext_renderer(ngui_renderer,
               d->x,

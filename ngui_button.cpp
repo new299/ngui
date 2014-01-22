@@ -12,13 +12,13 @@ typedef struct {
   int x_padding;
   int y_padding;
   int shine;
-  char text[100];
+  char text[NGUI_MAX_TEXT_SIZE];
   ngui_callback_void callback;
   uint32_t colour;
 } ngui_button_data;
 
 int ngui_buttons_size = 0;
-ngui_button_data ngui_buttons[50];
+ngui_button_data ngui_buttons[NGUI_MAX_GUI_ELEMENTS];
 
 void ngui_receive_event_button(SDL_Event *event, ngui_button_data *d) {
 
@@ -501,7 +501,7 @@ void draw_menu_icon (int x,int y,int shine){}
 
 void ngui_render_button(ngui_button_data *d) {
 
-  uint16_t text[100];
+  uint16_t text[NGUI_MAX_TEXT_SIZE];
   for(int n=0;n<100;n++) text[n] = d->text[n];
 
   SDL_SetRenderDrawColor(ngui_renderer,0xA0,0xA0,0xA0,0xFF);

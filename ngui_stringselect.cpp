@@ -13,11 +13,11 @@ typedef struct {
   int y_padding;
   int shine;
   char **stringlist;
-  void (*callback)(const char *);
+  ngui_callback_char callback;
 } ngui_stringselect_data;
 
 int ngui_stringselects_size = 0;
-ngui_stringselect_data ngui_stringselects[50];
+ngui_stringselect_data ngui_stringselects[NGUI_MAX_GUI_ELEMENTS];
 
 void ngui_receive_event_stringselect(SDL_Event *event, ngui_stringselect_data *d) {
 
@@ -59,7 +59,8 @@ void ngui_render_stringselect(ngui_stringselect_data *d) {
 
     char *text = d->stringlist[n];
 
-    uint16_t utext[1000];
+    uint16_t utext[NGUI_MAX_TEXT_SIZE];
+	memset(utext, 0, sizeof(utext));
     for(int i=0;text[i]!=0;i++) {
       utext[i] = text[i];
       utext[i+1] = 0;
@@ -70,7 +71,7 @@ void ngui_render_stringselect(ngui_stringselect_data *d) {
                 d->y+cyoff,
                 utext,
                 0,
-                65535,0,0,0,0);
+                0x0000ffff,0,0,0,0);
   }
 }
 

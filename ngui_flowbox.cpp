@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 typedef struct {
-  char name[100];
+  char name[NGUI_MAX_NAME_SIZE];
   int  outcount;
   bool selected;
   int  connected_to_flowbox;
@@ -27,8 +27,8 @@ typedef struct {
   int output_ports_count;
   ports_data output_ports[5];
   
-  char text[100];
-  void (*callback)(const char *);
+  char text[NGUI_MAX_TEXT_SIZE];
+  ngui_callback_char callback;
 } ngui_flowbox_data;
     
 typedef struct {
@@ -40,10 +40,10 @@ typedef struct {
 } ngui_flowbox_connection_data;
 
 int ngui_flowboxs_size = 0;
-ngui_flowbox_data ngui_flowboxs[50];
+ngui_flowbox_data ngui_flowboxs[NGUI_MAX_GUI_ELEMENTS];
 
 int ngui_flowbox_connections_size = 0;
-ngui_flowbox_connection_data ngui_flowbox_connections[50];
+ngui_flowbox_connection_data ngui_flowbox_connections[NGUI_MAX_GUI_ELEMENTS];
 
 bool draw_selection_line = false;
 int draw_selection_line_start_x = -1;

@@ -13,9 +13,9 @@ typedef struct {
   bool valid;
   int x;
   int y;
-  char p1[100];
-  char p2[100];
-  char p3[100];
+  char p1[NGUI_MAX_NAME_SIZE];
+  char p2[NGUI_MAX_NAME_SIZE];
+  char p3[NGUI_MAX_NAME_SIZE];
   int   p1_opt;
   int   p2_opt;
   int   p3_opt;
@@ -32,7 +32,7 @@ typedef struct {
 } ngui_info_prompt_data;
 
 int ngui_info_prompts_size = 0;
-ngui_info_prompt_data ngui_info_prompts[50];
+ngui_info_prompt_data ngui_info_prompts[NGUI_MAX_GUI_ELEMENTS];
 
 void ngui_receive_event_info_prompt(SDL_Event *event, ngui_info_prompt_data *d) {
 //  d->callback("127.0.0.1","user","password");

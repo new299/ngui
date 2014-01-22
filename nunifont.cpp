@@ -333,9 +333,9 @@ void draw_unitext_surface(SDL_Surface *screen,int x,int y,const uint16_t *text,u
   if(!initialised) nunifont_init();
 
   int length=0;
-  for(int n=0;n<10000;n++) {if(text[n] == 0) {length=n; break;}}
+  for(int n=0;n<NGUI_MAX_TEXT_SIZE;n++) {if(text[n] == 0) {length=n; break;}}
   if(length < 0    ) return;
-  if(length > 10000) return;
+  if(length > NGUI_MAX_TEXT_SIZE) return;
 
   int spacing=1;
 
@@ -373,16 +373,8 @@ void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *te
   while (*textp++)
 	  ;
   int length = textp - text - 1;
-  /*for(int n=0;n<10000;n++) 
-  {
-	  if(text[n] == 0) 
-	  {
-		  length=n; 
-		  break;
-	  }
-  }*/
   if(length < 0    ) return;
-  if(length > 10000) return;
+  if(length > NGUI_MAX_TEXT_SIZE) return;
 
   int spacing=1;
 
@@ -423,7 +415,7 @@ void draw_unitext_renderer_asc(SDL_Renderer *renderer,int x,int y,const char *te
     textlen = strlen(text);
   }
    
-  uint16_t buffer[1000];
+  uint16_t buffer[NGUI_MAX_TEXT_SIZE];
   memset(buffer, 0, sizeof(buffer));
   for(size_t n=0;n<textlen;n++) {
     buffer[n]=text[n];

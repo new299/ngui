@@ -2,6 +2,11 @@
 #define NGUI
 
 #include <SDL.h>
+#include <limits.h>
+
+#define NGUI_MAX_TEXT_SIZE			LINE_MAX
+#define NGUI_MAX_NAME_SIZE			128
+#define NGUI_MAX_GUI_ELEMENTS		64
 
 extern struct SDL_Renderer *ngui_renderer;
 typedef void (*ngui_callback_void)();

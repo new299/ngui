@@ -7,8 +7,6 @@
 #include <time.h>
 
 
-#define MAX_TEXT_LENGTH 1000
-
 typedef struct {
   bool valid;
   int  x;
@@ -18,12 +16,12 @@ typedef struct {
   int  y_padding;
   int  width;
   bool selected;
-  char text[MAX_TEXT_LENGTH];
+  char text[NGUI_MAX_TEXT_SIZE];
   ngui_callback_void callback;;
 } ngui_textbox_data;
 
 int ngui_textboxs_size = 0;
-ngui_textbox_data ngui_textboxs[50];
+ngui_textbox_data ngui_textboxs[NGUI_MAX_GUI_ELEMENTS];
 
 void ngui_receive_event_textbox(SDL_Event *event, ngui_textbox_data *d) {
 
@@ -58,7 +56,7 @@ void ngui_receive_event_textbox(SDL_Event *event, ngui_textbox_data *d) {
       const char *buffer = event->text.text;
 
       int p=0;
-      for(p=0;p<MAX_TEXT_LENGTH;p++) {
+      for(p=0;p<NGUI_MAX_TEXT_SIZE;p++) {
         if(d->text[p] == 0) break;
       }
 
@@ -78,12 +76,12 @@ void ngui_receive_event_textbox(SDL_Event *event, ngui_textbox_data *d) {
 
 void ngui_render_textbox(ngui_textbox_data *d) {
 
-  uint16_t text[MAX_TEXT_LENGTH];
-  for(int n=0;n<MAX_TEXT_LENGTH;n++) text[n] = d->text[n];
+  uint16_t text[NGUI_MAX_TEXT_SIZE];
+  for(int n=0;n<NGUI_MAX_TEXT_SIZE;n++) text[n] = d->text[n];
 
   // if selected draw a hacky cursor
   if(d->selected) {
-    for(int n=0;n<MAX_TEXT_LENGTH;n++) {
+    for(int n=0;n<NGUI_MAX_TEXT_SIZE;n++) {
       if(text[n] == 0) {
         text[n] = '_';
         text[n+1]=0;
@@ -105,7 +103,7 @@ void ngui_render_textbox(ngui_textbox_data *d) {
                  d->y,
                  text,
                  0,
-                 65535,0,0,0,0);
+                 0x0000ffff,0,0,0,0);
   } else {
     for(int n=0;n<100;n++) {
       if(text[n] != 0) text[n] = '*';
@@ -116,7 +114,7 @@ void ngui_render_textbox(ngui_textbox_data *d) {
                  d->y,
                  text,
                  0,
-                 65535,0,0,0,0);
+                 0x0000ffff,0,0,0,0);
   }
 }
 
