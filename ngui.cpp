@@ -13,31 +13,35 @@
 SDL_Renderer *ngui_renderer;
 ngui_callback_void ngui_redraw_required_callback;
 
-void ngui_set_renderer(struct SDL_Renderer *s,ngui_callback_void redraw_callback) {
-  ngui_renderer = s;
-  ngui_redraw_required_callback = redraw_callback;
+void ngui_set_renderer(struct SDL_Renderer *s,ngui_callback_void redraw_callback)
+{
+	ngui_renderer = s;
+	ngui_redraw_required_callback = redraw_callback;
 }
 
-void ngui_receive_event(SDL_Event *event) {
-  ngui_receiveall_info_prompt (event);
-  ngui_receiveall_textlabel   (event);
-  ngui_receiveall_button      (event);
-  ngui_receiveall_flowbox     (event);
-  ngui_receiveall_textbox     (event);
-  ngui_receiveall_stringselect(event);
+void ngui_receive_event(SDL_Event *event)
+{
+	ngui_receiveall_info_prompt (event);
+	ngui_receiveall_textlabel   (event);
+	ngui_receiveall_button      (event);
+	ngui_receiveall_flowbox     (event);
+	ngui_receiveall_textbox     (event);
+	ngui_receiveall_stringselect(event);
 }
 
-void ngui_render() {
-  ngui_renderall_info_prompt ();
-  ngui_renderall_textlabel   ();
-  ngui_renderall_button      ();
-  ngui_renderall_flowbox     ();
-  ngui_renderall_textbox     ();
-  ngui_renderall_stringselect();
+void ngui_render()
+{
+	ngui_renderall_info_prompt ();
+	ngui_renderall_textlabel   ();
+	ngui_renderall_button      ();
+	ngui_renderall_flowbox     ();
+	ngui_renderall_textbox     ();
+	ngui_renderall_stringselect();
 }
 
-void ngui_redraw_required() {
+void ngui_redraw_required()
+{
 
-  ngui_redraw_required_callback();
+	ngui_redraw_required_callback();
 
 }

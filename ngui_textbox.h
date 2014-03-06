@@ -11,7 +11,7 @@ void ngui_delete_textbox(int id);
 void ngui_receiveall_textbox(SDL_Event *event);
 
 void ngui_renderall_textbox();
-                                
+
 const char *ngui_textbox_get_value(int tb);
 void ngui_textbox_set_value(int id,const char *value);
 
