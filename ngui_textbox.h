@@ -5,6 +5,7 @@
 #include <SDL.h>
 
 int ngui_add_textbox(int x,int y,const char *text,bool passwordbox,ngui_callback_void callback);
+int ngui_add_textbox(int x,int y,const char *text,bool passwordbox, int width, ngui_callback_void callback);
 
 void ngui_delete_textbox(int id);
 

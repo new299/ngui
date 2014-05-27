@@ -113,8 +113,8 @@ void ngui_render_textbox(ngui_textbox_data *d)
 	bound.x = d->x-1;
 	bound.y = d->y;
 	bound.h = 18;
-	bound.w = 100*6;
-	SDL_RenderDrawRect(ngui_renderer,&bound);
+    bound.w = (d->width*8)+d->x_padding+1;
+    SDL_RenderDrawRect(ngui_renderer,&bound);
 
 	if(d->passwordbox == false)
 	{
@@ -146,21 +146,26 @@ void ngui_delete_textbox(int id)
 	ngui_textboxs[id].valid = false;
 }
 
+int ngui_add_textbox(int x,int y,const char *text,bool passwordbox, int width, ngui_callback_void callback)
+{
+    ngui_textboxs[ngui_textboxs_size].valid = true;
+    ngui_textboxs[ngui_textboxs_size].x = x;
+    ngui_textboxs[ngui_textboxs_size].y = y;
+    ngui_textboxs[ngui_textboxs_size].passwordbox = passwordbox;
+    ngui_textboxs[ngui_textboxs_size].x_padding = 10;
+    ngui_textboxs[ngui_textboxs_size].y_padding = 10;
+    ngui_textboxs[ngui_textboxs_size].width     = width;
+    strcpy(ngui_textboxs[ngui_textboxs_size].text,text);
+    ngui_textboxs[ngui_textboxs_size].callback = callback;
+
+    ngui_textboxs_size++;
+    return ngui_textboxs_size-1;
+
+}
+
 int ngui_add_textbox(int x,int y,const char *text,bool passwordbox,ngui_callback_void callback)
 {
-
-	ngui_textboxs[ngui_textboxs_size].valid = true;
-	ngui_textboxs[ngui_textboxs_size].x = x;
-	ngui_textboxs[ngui_textboxs_size].y = y;
-	ngui_textboxs[ngui_textboxs_size].passwordbox = passwordbox;
-	ngui_textboxs[ngui_textboxs_size].x_padding = 10;
-	ngui_textboxs[ngui_textboxs_size].y_padding = 10;
-	ngui_textboxs[ngui_textboxs_size].width     = 8*20;
-	strcpy(ngui_textboxs[ngui_textboxs_size].text,text);
-	ngui_textboxs[ngui_textboxs_size].callback = callback;
-
-	ngui_textboxs_size++;
-	return ngui_textboxs_size-1;
+    return ngui_add_textbox(x,y,text,passwordbox,40,callback);
 }
 
 void ngui_receiveall_textbox(SDL_Event *event)
