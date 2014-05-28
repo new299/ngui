@@ -30,21 +30,10 @@ void ngui_receive_event_button(SDL_Event *event, ngui_button_data *d)
 		int x = event->button.x;
 		int y = event->button.y;
 
-		if(d->text[0] == 'I')
-		{
-			if((x > (d->x)) && (x < ((d->x)+(16*6))) &&
-			        (y > (d->y)) && (y < ((d->y)+(16*6))))
-			{
-				d->callback();
-				d->shine=20;
-				ngui_redraw_required();
-			}
-		}
-
 		if((x > (d->x-d->x_padding)) && (x < ((d->x)+(strlen(d->text)*8)+d->x_padding)) &&
-		        (y > (d->y-d->y_padding)) && (y < ((d->y)+16+d->y_padding)))
+                (y > (d->y-d->y_padding)) && (y < ((d->y)+16)))
 		{
-			d->callback();
+            d->callback();
 			d->shine=20;
 			ngui_redraw_required();
 		}
