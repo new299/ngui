@@ -6,3 +6,4 @@ Makefile
 src/ngui/Makefile
 config.status
 config.log
+ar-lib

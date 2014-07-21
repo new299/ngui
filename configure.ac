@@ -14,6 +14,7 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 AM_PROG_CC_C_O
+AM_PROG_AR
 AC_PROG_RANLIB
 
 # automake initialisation and check for minimal automake API version 1.9
