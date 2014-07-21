@@ -12,3 +12,6 @@ autom4te.cache
 .tarball-version
 .version
 *~
+src/ngui/.libs
+*.lo
+*.la

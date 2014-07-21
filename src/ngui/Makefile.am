@@ -6,7 +6,7 @@ AM_CFLAGS = -I$(top_srcdir)/src/ngui @AM_CXXFLAGS@ $(sdl2_CFLAGS)
 # ###############################################################################
 #
 # the library names to build (note we are building static libs only)
-lib_LIBRARIES = libngui.a
+lib_LTLIBRARIES = libngui.la
 
 # where to install the headers on the system
 libngui_adir = $(includedir)/ngui
@@ -27,7 +27,7 @@ libngui_a_HEADERS = \
 					widthmap_static.h
 
 # the sources to add to the library and to add to the source distribution
-libngui_a_SOURCES = \
+libngui_la_SOURCES = \
 					$(libheaders_a_HEADERS) \
 					ngui_button.cpp \
 					ngui.cpp \
