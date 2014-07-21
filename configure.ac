@@ -35,6 +35,10 @@ AC_CHECK_HEADERS([iostream])
 AC_CHECK_HEADERS([stdbool.h])
 AC_CHECK_HEADERS([time.h])
 AC_CHECK_HEADERS([stdio.h])
+AC_CHECK_HEADERS([string.h])
+AC_CHECK_HEADERS([stdio.h])
+AC_CHECK_HEADERS([limits.h])
+AC_CHECK_HEADERS([stdint.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
