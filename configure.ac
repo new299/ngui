@@ -26,6 +26,9 @@ AC_LANG([C++])
 AC_HEADER_STDC
 AC_CHECK_HEADERS([string])
 AC_CHECK_HEADERS([iostream])
+AC_CHECK_HEADERS([stdbool.h])
+AC_CHECK_HEADERS([time.h])
+AC_CHECK_HEADERS([stdio.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
