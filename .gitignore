@@ -11,3 +11,4 @@ stamp-h1
 autom4te.cache
 .tarball-version
 .version
+*~
