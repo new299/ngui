@@ -1,6 +1,13 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src/ngui
 
+BUILT_SOURCES = $(top_srcdir)/.version
+$(top_srcdir)/.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+
+dist-hook:
+	echo $(VERSION) > $(distdir)/.tarball-version
+
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 build-aux/compile \
 					   build-aux/config.guess build-aux/config.sub build-aux/depcomp \
 					   build-aux/install-sh build-aux/ltmain.sh build-aux/missing \

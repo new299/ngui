@@ -1,7 +1,9 @@
 # this is example-file: configure.ac
 
 # initial information about the project
-AC_INIT([ngui],[0.0.1],[new299@sgenomics.org])
+AC_INIT([ngui], 
+        m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+        [new299@sgenomics.org])
 
 # check if the source folder is correct
 AC_CONFIG_SRCDIR([src/ngui/ngui.cpp])
