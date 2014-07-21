@@ -1,0 +1,8 @@
+*.o
+*.pc
+*.a
+src/ngui/.deps
+Makefile
+src/ngui/Makefile
+config.status
+config.log
