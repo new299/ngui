@@ -6,4 +6,6 @@ Makefile
 src/ngui/Makefile
 config.status
 config.log
-ar-lib
+config.h
+stamp-h1
+autom4te.cache

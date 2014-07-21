@@ -1,4 +1,6 @@
 #!/bin/bash
 autoreconf -fi
-automake
-rm -rf autom4te.cache
+autoheader
+touch NEWS README AUTHORS ChangeLog
+automake --add-missing
+#rm -rf autom4te.cache

@@ -6,6 +6,11 @@ AC_INIT([ngui],[0.0.1],[new299@sgenomics.org])
 # check if the source folder is correct
 AC_CONFIG_SRCDIR([src/ngui/ngui.cpp])
 
+AC_CONFIG_HEADERS([config.h])
+
+# automake initialisation and check for minimal automake API version 1.9
+AM_INIT_AUTOMAKE([1.9])
+
 # Checks for programs
 
 # check for C++ preprocessor and compiler and the library compiler
@@ -17,8 +22,6 @@ AM_PROG_CC_C_O
 AM_PROG_AR
 AC_PROG_RANLIB
 
-# automake initialisation and check for minimal automake API version 1.9
-AM_INIT_AUTOMAKE([1.9])
 
 # use the C++ compiler for the following checks
 AC_LANG([C++])
