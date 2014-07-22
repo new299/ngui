@@ -118,9 +118,12 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+CAT = @CAT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CHMOD = @CHMOD@
+CP = @CP@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -128,11 +131,14 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
+DATE = @DATE@
+DEBUILD = @DEBUILD@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
+ECHO = @ECHO@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
@@ -156,6 +162,7 @@ LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MV = @MV@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -170,6 +177,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -178,7 +186,10 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+TAR = @TAR@
+TEST = @TEST@
 VERSION = @VERSION@
+XARGS = @XARGS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -243,6 +254,11 @@ MAINTAINERCLEANFILES = Makefile.in aclocal.m4 build-aux/compile \
 					   config.h.in config.h.in~ configure m4/libtool.m4 m4/ltoptions.m4 \
 					   m4/ltsugar.m4 m4/ltversion.m4 m4/lt~obsolete.m4 \
 					   src/ngui/Makefile.in
+
+@BUILDING_DEB_TRUE@DEBSOURCEPKG = $(PACKAGE)_$(VERSION).orig.tar.gz
+@BUILDING_DEB_TRUE@DEBSOURCEDIR = $(PACKAGE)-$(VERSION)
+EXTRA_DIST = \
+	build-aux/update-debian-changelog
 
 all: $(BUILT_SOURCES) config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
@@ -771,6 +787,39 @@ $(top_srcdir)/.version:
 dist-hook:
 	echo $(VERSION) > $(distdir)/.tarball-version
 	sh $(top_srcdir)/build-aux/generate-ChangeLog $(top_srcdir) $(distdir)
+	sh $(top_srcdir)/build-aux/update-debian-changelog debian/changelog $(VERSION)
+@BUILDING_DEB_TRUE@deb: dist
+@BUILDING_DEB_TRUE@	@$(ECHO) "Building Debian package..."; \
+@BUILDING_DEB_TRUE@		if $(TEST) ! -d debian; then \
+@BUILDING_DEB_TRUE@		$(ECHO) "The files needed for building a Debian package are not" \
+@BUILDING_DEB_TRUE@		"included by default in the distribution. To build a package, check" \
+@BUILDING_DEB_TRUE@		"out the project from source control."; \
+@BUILDING_DEB_TRUE@		exit 1; \
+@BUILDING_DEB_TRUE@		fi; \
+@BUILDING_DEB_TRUE@		$(MV) $(PACKAGE)-$(VERSION).tar.gz $(DEBSOURCEPKG) && \
+@BUILDING_DEB_TRUE@		$(TAR) --extract --gunzip --file $(DEBSOURCEPKG) && \
+@BUILDING_DEB_TRUE@		$(MKDIR_P) $(DEBSOURCEDIR)/debian && \
+@BUILDING_DEB_TRUE@		$(CP) \
+@BUILDING_DEB_TRUE@		debian/compat \
+@BUILDING_DEB_TRUE@		debian/changelog \
+@BUILDING_DEB_TRUE@		debian/control \
+@BUILDING_DEB_TRUE@		debian/copyright \
+@BUILDING_DEB_TRUE@		debian/docs \
+@BUILDING_DEB_TRUE@		debian/rules \
+@BUILDING_DEB_TRUE@		debian/ngui.dirs \
+@BUILDING_DEB_TRUE@		debian/ngui.install \
+@BUILDING_DEB_TRUE@		debian/ngui-dev.dirs \
+@BUILDING_DEB_TRUE@		debian/ngui-dev.install \
+@BUILDING_DEB_TRUE@		$(DEBSOURCEDIR)/debian && \
+@BUILDING_DEB_TRUE@		cd $(DEBSOURCEDIR) && \
+@BUILDING_DEB_TRUE@		$(DEBUILD) -rfakeroot -D -us -uc; \
+@BUILDING_DEB_TRUE@		cd $(srcdir); \
+@BUILDING_DEB_TRUE@		rm --force $(DEBSOURCEPKG); \
+@BUILDING_DEB_TRUE@		rm --recursive --force $(DEBSOURCEDIR)
+@BUILDING_DEB_FALSE@deb:
+@BUILDING_DEB_FALSE@	@$(ECHO) \
+@BUILDING_DEB_FALSE@	"To build a Debian package, you must run configure with --enable-deb."; \
+@BUILDING_DEB_FALSE@	exit 1
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

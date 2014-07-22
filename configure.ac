@@ -14,6 +14,20 @@ AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([1.9])
 
 # Checks for programs
+AC_PROG_INSTALL
+AC_PROG_MKDIR_P
+AC_PATH_PROG([CAT], [cat])
+AC_PATH_PROG([CHMOD], [chmod])
+AC_PATH_PROG([CP], [cp])
+AC_PATH_PROG([DATE], [date])
+AC_PATH_PROG([ECHO], [echo])
+AC_PATH_PROG([ECHO], [echo])
+AC_PATH_PROG([MV], [mv])
+AC_PATH_PROG([PERL], [perl])
+AC_PATH_PROG([TAR], [tar gtar])
+AC_PATH_PROG([TEST], [test])
+AC_PATH_PROG([XARGS], [xargs])
+PKG_PROG_PKG_CONFIG
 
 # check for C++ preprocessor and compiler and the library compiler
 AC_PROG_CXXCPP
@@ -44,6 +58,17 @@ AC_TYPE_SIZE_T
 
 # Check for needed libraries
 PKG_CHECK_MODULES([sdl2],  [sdl2])
+
+# Debian packaging
+AC_PATH_PROG([DEBUILD], [dpkg-buildpackage], [notfound])
+AC_ARG_ENABLE([deb],
+              [AS_HELP_STRING([--enable-deb=@<:@yes/no@:>@],
+                              [Configure for building Debian package @<:@default=no@:>@ (requires dpkg- buildpackage)])],
+                              [AS_IF([$TEST "x$enable_deb" = xyes],
+                                     [AS_IF([$TEST "x$DEBUILD" = xnotfound],
+                                            [AC_MSG_ERROR([dpkg-buildpackage is required for --enable-deb])])])],
+                                            [enable_deb=no])
+AM_CONDITIONAL([BUILDING_DEB], [$TEST "x$enable_deb" = xyes])
 
 # distribute additional compiler and linker flags
 # --> set these variables instead of CXXFLAGS or LDFLAGS
