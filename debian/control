@@ -1,0 +1,23 @@
+Source: ngui
+Priority: extra
+Maintainer: Jimmy Tang <jcftang@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Section: libs
+Homepage: https://github.com/new299/ngui
+Vcs-Git: git://git.debian.org/collab-maint/ngui.git
+Vcs-Browser: https://github.com/new299/ngui
+
+Package: ngui-dev
+Section: libdevel
+Architecture: any
+Depends: ngui (= ${binary:Version})
+Description: ngui dev
+ ngui dev
+
+Package: ngui
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ngui
+ ngui
