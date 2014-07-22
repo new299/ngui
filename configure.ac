@@ -12,7 +12,6 @@ AC_CONFIG_HEADERS([config.h])
 
 # automake initialisation and check for minimal automake API version 1.9
 AM_INIT_AUTOMAKE([1.9])
-AM_PROG_LIBTOOL
 
 # Checks for programs
 
@@ -22,7 +21,7 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 AM_PROG_CC_C_O
-AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 
 
 # use the C++ compiler for the following checks

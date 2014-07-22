@@ -7,6 +7,7 @@ $(top_srcdir)/.version:
 
 dist-hook:
 	echo $(VERSION) > $(distdir)/.tarball-version
+	sh $(top_srcdir)/build-aux/generate-ChangeLog $(top_srcdir) $(distdir)
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 build-aux/compile \
 					   build-aux/config.guess build-aux/config.sub build-aux/depcomp \

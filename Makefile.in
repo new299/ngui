@@ -770,6 +770,7 @@ $(top_srcdir)/.version:
 
 dist-hook:
 	echo $(VERSION) > $(distdir)/.tarball-version
+	sh $(top_srcdir)/build-aux/generate-ChangeLog $(top_srcdir) $(distdir)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
