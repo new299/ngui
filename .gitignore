@@ -26,3 +26,4 @@ libtool
 configure
 debian/changelog
 Makefile.in
+ar-lib
