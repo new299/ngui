@@ -17,3 +17,4 @@ src/ngui/.libs
 *.la
 libtool
 configure
+debian/changelog
