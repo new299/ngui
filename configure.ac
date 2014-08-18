@@ -5,6 +5,8 @@ AC_INIT([ngui],
         m4_esyscmd([build-aux/git-version-gen .tarball-version]),
         [new299@sgenomics.org])
 
+AC_CONFIG_MACRO_DIR([m4])
+
 # check if the source folder is correct
 AC_CONFIG_SRCDIR([src/ngui/ngui.cpp])
 
@@ -79,6 +81,7 @@ AC_SUBST([AM_LDFLAGS])
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/ngui/Makefile])
 AC_CONFIG_FILES([src/ngui/libngui.pc])
+AC_CONFIG_FILES([debian/changelog])
 
 # generate the final Makefile etc.
 AC_OUTPUT
