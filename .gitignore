@@ -18,3 +18,4 @@ src/ngui/.libs
 libtool
 configure
 debian/changelog
+Makefile.in
