@@ -9,7 +9,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 # check if the source folder is correct
 AC_CONFIG_SRCDIR([src/ngui/ngui.cpp])
-
+AC_CONFIG_AUX_DIR([.])
 AC_CONFIG_HEADERS([config.h])
 
 # automake initialisation and check for minimal automake API version 1.9
