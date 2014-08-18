@@ -9,6 +9,13 @@ config.log
 config.h
 stamp-h1
 autom4te.cache
+compile
+config.guess
+config.sub
+depcomp
+install-sh
+ltmain.sh
+missing
 .tarball-version
 .version
 *~
