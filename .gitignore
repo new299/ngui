@@ -15,3 +15,5 @@ autom4te.cache
 src/ngui/.libs
 *.lo
 *.la
+libtool
+configure
