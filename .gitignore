@@ -27,3 +27,4 @@ configure
 debian/changelog
 Makefile.in
 ar-lib
+m4/libtool.m4
