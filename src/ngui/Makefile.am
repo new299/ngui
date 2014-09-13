@@ -1,5 +1,6 @@
-AM_CXXFLAGS = -I$(top_srcdir)/src/ngui @AM_CXXFLAGS@ $(sdl2_CFLAGS)
-AM_CFLAGS = -I$(top_srcdir)/src/ngui @AM_CXXFLAGS@ $(sdl2_CFLAGS)
+AM_CXXFLAGS = -I$(top_srcdir)/src/ngui @AM_CXXFLAGS@ $(sdl2_CFLAGS) $(SDL2_ttf_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/src/ngui @AM_CXXFLAGS@ $(sdl2_CFLAGS) $(SDL2_ttf_CFLAGS)
+
 
 ###############################################################################
 # THE LIBRARIES TO BUILD

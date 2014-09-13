@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <limits.h>
 #include "uthash.h"
+#include "SDL_ttf.h"
+
 
 bool get_widthmap(uint16_t p);
 
@@ -22,6 +24,8 @@ bool     initialised=false;
 bool     blink_value=false;
 
 uint32_t system_bg;
+
+TTF_Font* font;
 
 void load_fonts(const char *filename,fontchar **fontmap,uint8_t **widthmap);
 
@@ -372,7 +376,6 @@ void draw_unitext_fancy_renderer(SDL_Renderer *renderer,int x,int y,const uint16
 
 void draw_unitext_surface(SDL_Surface *screen,int x,int y,const uint16_t *text,uint32_t bg,uint32_t fg,int bold,int underline,int italic,int strike)
 {
-
 	if(!initialised) nunifont_init();
 
 	int length=0;
@@ -421,7 +424,50 @@ void draw_unitext_surface(SDL_Surface *screen,int x,int y,const uint16_t *text,u
 
 void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *text,uint32_t bg,uint32_t fg,int bold,int underline,int italic,int strike)
 {
+#if 0
+	char * charconv;
+	const uint16_t * textp = text;
+	
+	if(!initialised) nunifont_init();
+	
+	while (*textp++);
+	int length = textp - text - 1;
+	if(length < 0    ) return;
+	if(length > NGUI_MAX_TEXT_SIZE) return;
+	
+	
+	SDL_Color foregroundColor = { 255, 255, 255 };
+	foregroundColor.r = (fg & 0xff000000)>>24;
+	foregroundColor.g = (fg & 0x00ff0000)>>16;
+	foregroundColor.b = (fg & 0x0000ff00)>>8;
 
+	charconv = new char[length+2];
+	for(int i=0;i<length;i++)
+	{
+		charconv[i] = text[i];
+	}
+	charconv[length]='\0';
+	
+	SDL_Surface* textSurfaceDyn;
+	textSurfaceDyn= TTF_RenderUTF8_Solid(font, charconv, foregroundColor);
+	
+	SDL_Texture* textTextureDyn = SDL_CreateTextureFromSurface(renderer, textSurfaceDyn);
+	if(textTextureDyn)
+	{
+		SDL_Rect* textDynLocation = new SDL_Rect();
+		textDynLocation->x = x;
+		textDynLocation->y = y;
+		textDynLocation->w = textSurfaceDyn->w;
+		textDynLocation->h = textSurfaceDyn->h;
+		
+		SDL_RenderCopy(renderer, textTextureDyn, NULL, textDynLocation);
+	}
+	
+	
+	delete [] charconv;
+	
+	/***/
+#else
 	if(!initialised) nunifont_init();
 
 	//int length=0;
@@ -464,6 +510,7 @@ void draw_unitext_renderer(SDL_Renderer *renderer,int x,int y,const uint16_t *te
 			if(w==16) c_x+=w+spacing+spacing;
 		}
 	}
+#endif
 }
 
 void draw_unitext_renderer_asc(SDL_Renderer *renderer,int x,int y,const char *text,uint32_t bg,uint32_t fg)
@@ -611,6 +658,7 @@ void load_fonts(const char *filename,fontchar **fontmap,uint8_t **widthmap)
 		set_widthmap(*widthmap,n,width);
 		free(line);
 	}
+	
 }
 
 void nunifont_save_staticmap(char *fontmap_filename,char *widthmap_filename)
@@ -645,6 +693,15 @@ void nunifont_load_staticmap(void *fontmap_static,void *widthmap_static,int font
 	widthmap_size = widthmap_static_size;
 	nunifont_initcache();
 	initialised = true;
+
+	TTF_Init();          
+    font = TTF_OpenFont("UbuntuMono-R.ttf", 16);
+    if(!font){
+		perror(SDL_GetError());
+        perror(": Could not load font");
+    }
+
+
 }
 
 

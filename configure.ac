@@ -58,6 +58,7 @@ AC_TYPE_SIZE_T
 
 # Check for needed libraries
 PKG_CHECK_MODULES([sdl2],  [sdl2])
+PKG_CHECK_MODULES([SDL2_ttf],  [SDL2_ttf])
 
 # Debian packaging
 AC_PATH_PROG([DEBUILD], [dpkg-buildpackage], [notfound])
