@@ -1,0 +1,29 @@
+#!/bin/bash
+case $1 in
+patch)
+    ;;
+install_deps)
+    git submodule init
+    git submodule update
+    ;;
+configure)
+    ./autogen.sh
+    ./configure --enable-deb=yes
+    ;;
+compile)
+    make -j 4
+    ;;
+check)
+    make check
+    #make distcheck
+    ;;
+package)
+    make deb -j 4
+    ;;
+upload)
+    ;;
+compile_extra)
+    ;;
+uninstall_deps)
+    ;;
+esac
