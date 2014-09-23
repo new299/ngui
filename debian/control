@@ -1,7 +1,7 @@
 Source: ngui
 Priority: extra
 Maintainer: Jimmy Tang <jcftang@gmail.com>
-Build-Depends: debhelper (>= 8.0.0)
+Build-Depends: debhelper (>= 8.0.0), build-essential, libsdl2-dev, cdbs
 Standards-Version: 3.9.2
 Section: libs
 Homepage: https://github.com/new299/ngui
